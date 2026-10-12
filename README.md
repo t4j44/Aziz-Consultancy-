@@ -88,6 +88,22 @@ npx esbuild entry.js --bundle --minify --format=esm --legal-comments=inline --ou
 - `tools/capture-stage1.mjs`: section screenshots for review (Stage 1).
 - `tools/check-stage2.mjs`: WebGL globe, pin range, Lenis, reveals after a full scroll, reduced motion, phone fallback, no-WebGL fallback, console errors. Writes `screenshots-stage2/` in the project root. Both scripts need Edge or Chrome: `BROWSER_EXE="C:/path/to/msedge.exe" node tools/check-stage2.mjs`, run from the project root.
 
+## What came from the reference repos
+
+| Repo | Used for | How |
+|---|---|---|
+| [ShaderGradient](https://github.com/ruucm/shadergradient) (MIT) | Hero background | `assets/gradient.js` uses ShaderGradient's Perlin noise (from glsl-noise, MIT) and its three-colour mix `mix(mix(c1, c2, smoothstep(-3, 3, x)), c3, z)`. They run in one full-screen pass on a plain WebGL canvas, so it works on phones without React. |
+| [awesome-design-md](https://github.com/VoltAgent/awesome-design-md) (MIT) | Design rules | Lamborghini and Runway files: depth from surface layers, gold kept for the main action, half-opacity ghost outlines, a minimal nav. See `DESIGN.md`. |
+| [Liquid Glass JS](https://github.com/dashersw/liquid-glass-js) (MIT) | Frosted glass look | The look only (blur, saturation, a lit rim), done in CSS on the header and the phone dock. The library itself needs html2canvas plus WebGL 2 per element and lists mobile optimisation as unfinished, so it is not shipped. |
+| [scroll-craft](https://github.com/nateherkai/scroll-craft) | Depth and motion rules | One signature move, one feeling per act, and its depth tools: edge light, overlapping sheets, grain. |
+| [Liquid Logo](https://github.com/paper-design/liquid-logo) | Not used | It reshapes a logo into liquid metal. The owner's logo must not be altered. |
+| [React Three Fiber](https://github.com/pmndrs/react-three-fiber) | Not used | The site is static files. The 3D globe uses three.js directly. |
+| [Feather icons](https://github.com/feathericons/feather) (MIT) | Phone icon | Inline SVG on the call buttons. |
+
+## Deploying: bump the version
+
+`index.html` loads its own CSS and scripts with `?v=...`. After changing any of `styles.css`, `app.js`, `data/content.js`, `assets/motion.js` or `assets/gradient.js`, change that value in `index.html` so browsers fetch the new files. GitHub Pages caches files for several minutes, and a stale stylesheet beside a new page looks broken. `assets/motion.js` passes its version on to the globe files it loads.
+
 ## Still open
 
 - Domain: `og:image` and the sitemap use placeholders. Add the canonical URL, the real domain in `sitemap.xml`, and the Sitemap line in `robots.txt` after the owner confirms a domain.

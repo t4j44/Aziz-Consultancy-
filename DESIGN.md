@@ -169,3 +169,14 @@ Grammar: chaptered editorial, five acts (Arrival, Routes, Method, Proof, Landing
 | Signature move | Image parallax | One flight arc drawn from Shaistagonj (Stage 2) |
 
 Differs on six of six dimensions. The brief requires four.
+
+## Stage 3: influences and refinements
+
+Sources: Lamborghini and Runway (awesome-design-md), ShaderGradient, Liquid Glass JS, scroll-craft. Details and credits are in README.md.
+
+- **Hero background:** a slow three-colour gradient (deep navy, royal navy, a little gold at the crests) drawn by `assets/gradient.js`, with still grain. Text always sits on a dark area; edges stay deep.
+- **Glass:** only the header pill and the phone dock. Blur 18–20px, saturation 1.6–1.7, a 1px lit rim (inset highlight), and enough opacity that text keeps 4.5:1.
+- **Sheets:** each act after the hero slides over the one before it with a 28px top radius. Dark acts carry a 1px gold edge light.
+- **Gold:** primary actions, the footer wordmark sheen, and small kickers. Ghost buttons use a half-opacity outline.
+- **Phone:** headline, description and buttons, then the globe, then the figures. Spec lists are ruled rows. The dock is a compact glass capsule, not a full-width bar. The footer has its own room for the dock.
+- **Cache:** own assets carry `?v=`; bump it on every deploy.

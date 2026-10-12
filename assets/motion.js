@@ -5,6 +5,12 @@
   'use strict';
 
   var base = document.currentScript ? document.currentScript.src : window.location.href;
+  // Files loaded on demand inherit this script's ?v= so a new deploy is never served from an old cache.
+  var version = base.indexOf('?') > -1 ? base.split('?')[1] : '';
+  function asset(name) {
+    var url = new URL(name, base).href.split('?')[0];
+    return version ? url + '?' + version : url;
+  }
   var root = document.documentElement;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce || !window.gsap || !window.ScrollTrigger) return;
@@ -141,8 +147,8 @@
   var stage = document.querySelector('[data-stage]');
 
   function mountGlobe() {
-    var moduleUrl = new URL('globe.js', base).href;
-    var dotsUrl = new URL('globe-dots.json', base).href;
+    var moduleUrl = asset('globe.js');
+    var dotsUrl = asset('globe-dots.json');
     import(moduleUrl)
       .then(function (module) { return module.mountGlobe(stage, { dots: dotsUrl }); })
       .then(function (globe) {

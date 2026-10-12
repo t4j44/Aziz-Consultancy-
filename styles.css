@@ -666,6 +666,98 @@ html[lang="bn"] .footer-mark { line-height: 1.35; letter-spacing: 0; }
 .logo-plate { transform-style: preserve-3d; will-change: transform; }
 .actions .btn, .float-call { will-change: transform; }
 
+/* ---------- Stage 3 · refinement ----------
+ * Influences. awesome-design-md (Lamborghini, Runway): depth from surface layers, gold kept for the
+ * main action, half-opacity ghost outlines. Liquid Glass JS: frosted glass with a lit rim, done in
+ * CSS. scroll-craft: depth tools (edge light, overlap, grain). ShaderGradient: hero background. */
+
+html { background: var(--deep); }
+body { padding-bottom: 0; }
+.ico { flex: none; }
+
+/* Hero gradient canvas (assets/gradient.js) */
+.gradient-canvas {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  z-index: -1; display: block; pointer-events: none;
+  opacity: 0; transition: opacity 1.4s ease;
+}
+.gradient-canvas.is-live { opacity: 1; }
+
+/* Frosted glass: header pill and the phone dock */
+.pill {
+  background: rgba(255, 255, 255, 0.9);
+  -webkit-backdrop-filter: blur(18px) saturate(1.6);
+  backdrop-filter: blur(18px) saturate(1.6);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 14px 34px rgba(4, 15, 43, 0.3);
+}
+
+.sticky-bar {
+  left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom));
+  padding: 8px; gap: 8px; justify-content: center;
+  background: rgba(5, 18, 46, 0.82);
+  -webkit-backdrop-filter: blur(20px) saturate(1.7);
+  backdrop-filter: blur(20px) saturate(1.7);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 26px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 18px 40px rgba(0, 0, 0, 0.4);
+}
+.sticky-bar .btn { flex: 1 1 0; max-width: 280px; min-height: 48px; border-radius: 18px; }
+
+/* Lit edges on the main action */
+.btn-gold {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 8px 22px rgba(203, 135, 17, 0.22);
+}
+.btn-ghost { background: rgba(255, 255, 255, 0.04); }
+
+/* Sheets: each act slides over the one before, with a lit top edge on dark acts */
+.act:not(.act-arrival) {
+  margin-top: -28px;
+  border-radius: 28px 28px 0 0;
+}
+.act-dark { overflow: clip; }
+.act-dark:not(.act-arrival)::after {
+  content: "";
+  position: absolute; left: 8%; right: 8%; top: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(250, 209, 88, 0.6), transparent);
+  pointer-events: none;
+}
+
+/* Room under the footer for the phone dock (replaces the old body padding that showed as a white strip) */
+.site-footer { padding-bottom: calc(clamp(48px, 6vw, 80px) + 96px); }
+
+/* Footer wordmark: a slow gold sheen */
+.motion .footer-mark { background-size: 240% 100%; animation: sheen 10s ease-in-out infinite; }
+@keyframes sheen {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@media (min-width: 960px) {
+  .site-footer { padding-bottom: clamp(48px, 6vw, 80px); }
+}
+
+/* Phones: tighter rhythm, spec lists as ruled rows */
+@media (max-width: 959px) {
+  .act:not(.act-arrival) { padding-block: 72px; }
+  .act-arrival { padding-bottom: 72px; }
+  .arrival-grid { gap: 0; }
+  .arrival-copy > .kicker { margin-bottom: 0.6rem; }
+  .hero-title { margin-bottom: 1rem; }
+  .actions { margin-top: 1.4rem; }
+  .route-figure { margin-top: 0.75rem; }
+  .facts { margin-top: 1.1rem; grid-template-columns: repeat(3, 1fr); gap: 12px; padding-top: 18px; }
+  .facts strong { font-size: 1.3rem; }
+  .facts span:last-child { font-size: 0.8125rem; line-height: 1.5; }
+  .legend li { min-height: 30px; padding: 0 0.65rem; font-size: 0.8125rem; }
+  .chapter { gap: 8px; }
+  .specs { gap: 0; margin: 0.75rem 0 1.25rem; }
+  .specs > div { padding: 12px 0; border-top: 1px solid var(--hair-light); }
+  .specs > div:first-child { border-top: 0; }
+  .update { padding: 18px 0; }
+  .step { padding: 20px 0; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
