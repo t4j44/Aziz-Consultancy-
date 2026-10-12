@@ -100,7 +100,7 @@ export async function mountGlobe(container, options = {}) {
 
   const scene = new Scene();
   const camera = new PerspectiveCamera(28, 1, 0.1, 100);
-  camera.position.set(0, 0, 5.1);
+  camera.position.set(0, 0, 4.8);
 
   scene.add(new AmbientLight(0xffffff, 0.9));
   const sun = new DirectionalLight(0xffffff, 1.4);
@@ -128,9 +128,9 @@ export async function mountGlobe(container, options = {}) {
   spin.add(body);
 
   const rim = new Mesh(
-    new SphereGeometry(1.12, 96, 64),
+    new SphereGeometry(1.1, 96, 64),
     new MeshBasicMaterial({
-      color: COLORS.royal, side: BackSide, transparent: true, opacity: 0.28,
+      color: COLORS.royal, side: BackSide, transparent: true, opacity: 0.4,
       blending: AdditiveBlending, depthWrite: false
     })
   );
@@ -151,13 +151,13 @@ export async function mountGlobe(container, options = {}) {
   const dotGeometry = new BufferGeometry();
   dotGeometry.setAttribute('position', new Float32BufferAttribute(positions, 3));
   spin.add(new Points(dotGeometry, new PointsMaterial({
-    color: COLORS.ivory, size: 0.017, sizeAttenuation: true,
-    transparent: true, opacity: 0.55, depthWrite: false
+    color: COLORS.ivory, size: 0.022, sizeAttenuation: true,
+    transparent: true, opacity: 0.75, depthWrite: false
   })));
 
   // Beacon at Shaistagonj: core dot plus a pulsing ring
   const hubPos = surface(HUB.lat, HUB.lon, 1.006);
-  const hubCore = new Mesh(new SphereGeometry(0.018, 24, 16), new MeshBasicMaterial({ color: COLORS.goldHi }));
+  const hubCore = new Mesh(new SphereGeometry(0.024, 24, 16), new MeshBasicMaterial({ color: COLORS.goldHi }));
   hubCore.position.copy(hubPos);
   spin.add(hubCore);
 
@@ -177,10 +177,10 @@ export async function mountGlobe(container, options = {}) {
     const curve = new CatmullRomCurve3(arcPoints(hubDir, end, 90, lift), false, 'catmullrom', 0.5);
 
     const track = new Mesh(
-      new TubeGeometry(curve, 180, 0.0042, 8, false),
-      new MeshBasicMaterial({ color: COLORS.goldHi, transparent: true, opacity: 0.16, depthWrite: false })
+      new TubeGeometry(curve, 180, 0.0048, 8, false),
+      new MeshBasicMaterial({ color: COLORS.goldHi, transparent: true, opacity: 0.24, depthWrite: false })
     );
-    const drawn = new TubeGeometry(curve, 180, 0.0075, 8, false);
+    const drawn = new TubeGeometry(curve, 180, 0.0095, 8, false);
     const path = new Mesh(
       drawn,
       new MeshBasicMaterial({ color: COLORS.goldHi, transparent: true, opacity: 0.95, depthWrite: false })
@@ -188,7 +188,7 @@ export async function mountGlobe(container, options = {}) {
     drawn.setDrawRange(0, 0);
     spin.add(track, path);
 
-    const beacon = new Mesh(new SphereGeometry(0.016, 20, 14), new MeshBasicMaterial({ color: COLORS.goldHi }));
+    const beacon = new Mesh(new SphereGeometry(0.02, 20, 14), new MeshBasicMaterial({ color: COLORS.goldHi }));
     beacon.position.copy(end.clone().multiplyScalar(1.006));
     spin.add(beacon);
 
@@ -223,7 +223,7 @@ export async function mountGlobe(container, options = {}) {
 
   function update(dt) {
     clock += dt;
-    spin.rotation.y = TURN * progress + Math.sin(clock * 0.35) * 0.02;
+    spin.rotation.y = TURN * progress + Math.sin(clock * 0.4) * 0.12;
 
     // Each arc gets its own slot in the scroll range; the plane flies the arc being drawn.
     const n = routes.length;

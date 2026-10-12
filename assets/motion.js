@@ -147,14 +147,26 @@
       .then(function (module) { return module.mountGlobe(stage, { dots: dotsUrl }); })
       .then(function (globe) {
         stage.classList.add('is-live');
-        ST.create({
-          trigger: hero,
-          start: 'top top',
-          end: '+=130%',
-          pin: true,
-          scrub: 0.5,
-          onUpdate: function (self) { globe.setProgress(self.progress); }
-        });
+        if (wide) {
+          // Desktop: the hero pins and the route is drawn as you scroll through it.
+          ST.create({
+            trigger: hero,
+            start: 'top top',
+            end: '+=130%',
+            pin: true,
+            scrub: 0.5,
+            onUpdate: function (self) { globe.setProgress(self.progress); }
+          });
+        } else {
+          // Phone: no pin (it would trap scrolling). The route is drawn as the globe passes the screen.
+          ST.create({
+            trigger: stage,
+            start: 'top 85%',
+            end: 'bottom 35%',
+            scrub: 0.5,
+            onUpdate: function (self) { globe.setProgress(self.progress); }
+          });
+        }
         ST.refresh();
       })
       .catch(function () {
@@ -162,7 +174,7 @@
       });
   }
 
-  if (wide && hero && stage) mountGlobe();
+  if (hero && stage) mountGlobe();
 
   /* ---------- Refresh after layout changes ---------- */
 

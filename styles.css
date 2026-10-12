@@ -606,10 +606,28 @@ html[lang="bn"] .footer-mark { line-height: 1.35; letter-spacing: 0; }
 }
 
 @media (max-width: 400px) {
-  .brand-text { display: none; }
-  .pill { gap: 8px; }
+  .brand img { width: 34px; height: 29px; }
+  .brand-name { font-size: 0.95rem; }
+  .pill { gap: 8px; padding-left: 10px; }
   .lang-toggle { padding: 0 0.7rem; font-size: 0.85rem; }
   .menu-toggle { padding: 0 0.75rem; }
+}
+
+@media (max-width: 359px) {
+  .brand-text { display: none; }
+}
+
+/* Phone hero: headline, lede and buttons first, then the globe, then the figures */
+@media (max-width: 959px) {
+  .act-arrival { padding-top: 112px; }
+  .arrival-copy { display: contents; }
+  .arrival-copy > .kicker { order: 0; margin-bottom: 0.9rem; }
+  .hero-title { order: 1; }
+  .arrival-copy > .lede { order: 2; }
+  .actions { order: 3; margin: 1.5rem 0 0; }
+  .route-figure { order: 4; margin-top: 1.5rem; }
+  .facts { order: 5; margin-top: 1.5rem; }
+  .legend { margin-top: 14px; }
 }
 
 /* ---------- Stage 2 · motion (only active when motion.js runs) ---------- */
@@ -625,11 +643,9 @@ html[lang="bn"] .footer-mark { line-height: 1.35; letter-spacing: 0; }
 }
 .globe-stage.is-live canvas { opacity: 1; }
 
-@media (min-width: 960px) {
-  .globe-stage { aspect-ratio: 1 / 1; max-width: 620px; margin-inline: auto; }
-  .globe-stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
-  .globe-stage.is-live img { opacity: 0; }
-}
+.globe-stage { aspect-ratio: 1 / 1; max-width: 620px; margin-inline: auto; }
+.globe-stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.globe-stage.is-live img { opacity: 0; }
 
 .steps { position: relative; }
 .steps-line {

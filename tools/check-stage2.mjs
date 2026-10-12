@@ -147,6 +147,11 @@ try {
     const hidden = await page.evaluate(() => [...document.querySelectorAll('[data-reveal]')]
       .filter((e) => parseFloat(getComputedStyle(e).opacity) < 0.99).length);
     log(`phone reveals still hidden after full scroll: ${hidden}`);
+
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await sleep(1800);
+    await page.screenshot({ path: path.join(OUT, 'phone-393-hero.png') });
+    log('saved phone-393-hero.png');
     const state = await page.evaluate(() => ({
       motion: document.documentElement.classList.contains('motion'),
       canvas: !!document.querySelector('[data-stage] canvas'),
