@@ -1,0 +1,9 @@
+# Rejected AI-looking photos: kept locally for reference, never published
+_rejected/
+_archive/
+
+# Local tooling output
+node_modules/
+*.log
+.DS_Store
+Thumbs.db

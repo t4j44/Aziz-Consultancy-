@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+# Add the Sitemap line once the owner confirms the domain.
